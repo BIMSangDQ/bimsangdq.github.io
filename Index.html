@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dang Quang Sang — Resume</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #F5F2ED;
+            --sidebar: #1A1A18;
+            --accent: #C8A97E;
+            --accent2: #7C9E87;
+            --text: #2A2A26;
+            --muted: #7A7A72;
+            --border: #DDD8CE;
+            --sidebar-text: #E8E4DC;
+            --sidebar-muted: #9A9690;
+            --tag-bg: #2D2D2A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            max-width: 960px;
+            width: 100%;
+            min-height: 900px;
+            box-shadow: 0 8px 60px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--sidebar);
+            color: var(--sidebar-text);
+            padding: 48px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .avatar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Serif Display', serif;
+            font-size: 32px;
+            color: #fff;
+            letter-spacing: -1px;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 4px rgba(200, 169, 126, 0.25);
+        }
+
+        .s-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            line-height: 1.25;
+            text-align: center;
+            color: #fff;
+        }
+
+        .s-title {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .s-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .s-label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border-bottom: 1px solid #2D2D2A;
+            padding-bottom: 6px;
+            margin-bottom: 4px;
+        }
+
+        .s-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .s-info-key {
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--sidebar-muted);
+        }
+
+        .s-info-val {
+            font-size: 12.5px;
+            color: var(--sidebar-text);
+            line-height: 1.4;
+        }
+
+        .s-info-val a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .s-info-val a:hover {
+            opacity: 0.75;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            border: 1px solid #3A3A36;
+            color: var(--sidebar-text);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 400;
+        }
+
+        .tag.accent {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .tag.green {
+            border-color: var(--accent2);
+            color: var(--accent2);
+        }
+
+        .lang-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lang-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .lang-name {
+            font-size: 12px;
+            color: var(--sidebar-text);
+        }
+
+        .lang-track {
+            height: 3px;
+            background: #2D2D2A;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .lang-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 999px;
+            animation: growBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes growBar {
+            from {
+                width: 0 !important;
+            }
+        }
+
+        /* ── MAIN ── */
+        .main {
+            background: var(--bg);
+            padding: 48px 44px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .main-header {
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 20px;
+        }
+
+        .main-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 42px;
+            line-height: 1;
+            letter-spacing: -1.5px;
+            color: var(--text);
+        }
+
+        .main-name em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .main-subtitle {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .objective-text {
+            font-size: 13.5px;
+            line-height: 1.75;
+            color: var(--muted);
+            border-left: 2px solid var(--accent);
+            padding-left: 16px;
+        }
+
+        .exp-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.5s ease both;
+        }
+
+        .exp-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .exp-role {
+            font-family: 'DM Serif Display', serif;
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .exp-period {
+            font-family: 'Fira Code', monospace;
+            font-size: 10.5px;
+            color: var(--accent);
+            white-space: nowrap;
+            padding-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .exp-company {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--accent2);
+            letter-spacing: 0.5px;
+        }
+
+        .exp-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .exp-bullets li {
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .exp-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 10px;
+            top: 2px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .project-card {
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: border-color 0.2s, transform 0.2s;
+            cursor: default;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .project-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .project-desc {
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .edu-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .edu-school {
+            font-family: 'DM Serif Display', serif;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .edu-degree {
+            font-size: 11.5px;
+            color: var(--muted);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .edu-period {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            color: var(--accent);
+        }
+
+        @media (max-width: 720px) {
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                padding: 36px 24px;
+            }
+
+            .main {
+                padding: 36px 24px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-name {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- ── SIDEBAR ── -->
+        <aside class="sidebar">
+
+            <div class="avatar-wrap">
+                <div class="avatar">SD</div>
+            </div>
+
+            <div class="s-section">
+                <div class="s-label">Details</div>
+                <div class="s-info-row">
+                    <span class="s-info-key">Location</span>
+                    <span class="s-info-val">DakLak, Viet Nam</span>
+                </div>
+                <div class="s-info-row">
+                    <span class="s-info-key">Phone</span>
+                    <span class="s-info-val">+84 377 593 693</span>
+                </div>
+                <div class="s-info-row">
+                    <span class="s-info-key">Email</span>
+                    <span class="s-info-val"><a href="mailto:sangdang28@gmail.com">sangdang28293@gmail.com</a></span>
+                </div>
+                <div class="s-info-row">
+                    <span class="s-info-key">Date of Birth</span>
+                    <span class="s-info-val">February 28, 1993</span>
+                </div>
+            </div>
+
+            <div class="s-section">
+                <div class="s-label">Technical Skills</div>
+                <div class="s-info-row">
+                    <span class="s-info-key">Languages</span>
+                    <div class="tag-list" style="margin-top:6px">
+                        <span class="tag accent">C#</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+                <div class="s-info-row" style="margin-top:10px">
+                    <span class="s-info-key">BIM</span>
+                    <div class="tag-list" style="margin-top:6px">
+                        <span class="tag green">Revit API</span>
+                        <span class="tag">Dynamo</span>
+                        <span class="tag">AutoCAD</span>
+                    </div>
+                </div>
+                <div class="s-info-row" style="margin-top:10px">
+                    <span class="s-info-key">Tools</span>
+                    <div class="tag-list" style="margin-top:6px">
+                        <span class="tag">WPF</span>
+                        <span class="tag">.NET Core</span>
+                        <span class="tag">.NET FW</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="s-section">
+                <div class="s-label">Languages</div>
+                <div class="lang-bar">
+                    <div class="lang-row">
+                        <span class="lang-name">Vietnamese</span>
+                        <div class="lang-track">
+                            <div class="lang-fill" style="width:100%"></div>
+                        </div>
+                    </div>
+                    <div class="lang-row">
+                        <span class="lang-name">English</span>
+                        <div class="lang-track">
+                            <div class="lang-fill" style="width:50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="s-section">
+                <div class="s-label">Interests</div>
+                <div class="tag-list">
+                    <span class="tag">🎮 Game</span>
+                    <span class="tag">⚽ Football</span>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- ── MAIN ── -->
+        <main class="main">
+
+            <header class="main-header">
+                <div class="main-name">Dang Quang Sang</div>
+                <div class="main-subtitle">C# · BIM · Revit API · Software Engineer</div>
+            </header>
+
+            <section class="section">
+                <div class="section-title">PROFESSIONAL SUMMARY</div>
+                <p class="objective-text">
+                    Software Engineer specializing in the .NET / C# ecosystem, currently working at Arent Inc (Tokyo).
+                    Over 8 years of
+                    experience bridging Civil Engineering and Software Development, specializing in solving complex
+                    geometric problems,
+                    algorithm optimization, and BIM workflow automation. Passionate about leveraging
+                    AI/Machine
+                    Learning
+                    to revolutionize the AEC industry. </p>
+            </section>
+
+            <section class="section">
+                <div class="section-title">Experience</div>
+
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <div class="exp-role">C# Software Engineer</div>
+                        <div class="exp-period">May 2023 — Present</div>
+                    </div>
+                    <div class="exp-company">Arent Inc · Tokyo, Japan (Remote)</div>
+                    <ul class="exp-bullets">
+                        <li>BIM Automation: Develop large-scale Revit Add-ons for the Japanese market, focusing on MEP design automation.</li>
+                        <li>Streamlined complex MEP workflows using advanced Revit API techniques and interactive visualization features.</li>
+                        <li>Quality Assurance: Serve as a Technical Reviewer, ensuring source code quality adheres to
+                            Clean Code standards and Design Patterns.</li>
+                        <li>Talent Acquisition: Conducted code reviews/assessments to evaluate the programming proficiency of candidates.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <div class="exp-role">BIM Automation Specialist</div>
+                        <div class="exp-period">2018 — 2023</div>
+                    </div>
+                    <div class="exp-company">Hoa Binh Construction Group · Ho Chi Minh City</div>
+                    <ul class="exp-bullets">
+                        <li>Product Development: Founded and developed HB_Rebar, a leading rebar detailing automation
+                            tool that saved thousands of engineering man-hours.</li>
+                        <li>Digital Transformation: Digitalized on-site QA/QC workflows and implemented automated model-checking tools to enhance BIM data integrity and model quality.</li>
+                        <li>Project Management: Managed technical aspects of high-rise projects, ensuring alignment
+                            between BIM models and actual construction.</li>
+                        <li>Researched and developed custom applications to automate and optimize internal workflow processes.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <div class="exp-role">Site Engineer</div>
+                        <div class="exp-period">2016 — 2018</div>
+                    </div>
+                    <div class="exp-company">Hoa Binh Construction Group · Ho Chi Minh City</div>
+                    <ul class="exp-bullets">
+                        <li>Formwork Method Statements & Shop Drawings</li>
+                        <li>Construction Methodology Quantification: Calculated and extracted quantities for temporary works, shoring systems, and construction staging.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-title">Side Projects</div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-name">Dynamo in Autocad</div>
+                        <div class="project-desc">A visual programming interface for AutoCAD that automates complex
+                            drafting through a
+                            node-based system similar to Dynamo.</div>
+                        <a href="https://www.youtube.com/watch?v=j9CbRAJJil8&t=14s" target="_blank"
+                            style="font-size: 11px; color: var(--accent); text-decoration: none; margin-top: 6px;">▶
+                            Watch Demo</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-name">Revit API - Concrete & Formwork Management (CFM)</div>
+                        <div class="project-desc">Automatically analyzes element geometry and converts it into readable, auditable formulas.
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=kpv9oRH4RDE&t=255s" target="_blank"
+                            style="font-size: 11px; color: var(--accent); text-decoration: none; margin-top: 6px;">▶
+                            Watch Demo</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-name">Revit Gen AI</div>
+                        <div class="project-desc">Integrated ChatGPT to enable natural language querying for automated BIM data extraction, scheduling, and object manipulation within Revit.</div>
+                        <a href="https://drive.google.com/file/d/1NdToFk9Mvd-VJTc8OrFqbJyRN50S2mtv/view?usp=sharing" target="_blank"
+                            style="font-size: 11px; color: var(--accent); text-decoration: none; margin-top: 6px;">▶
+                            Watch Demo</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-name">Research on Rebar Modeling and Detailing in AutoCAD</div>
+                        <div class="project-desc">Leveraged AutoCAD XData to store custom metadata, automating the generation of smart drawing entities and construction documents.</div>
+                                            <a href="https://www.youtube.com/watch?v=W5g6lGzj1qw&t=117s" target="_blank"
+                            style="font-size: 11px; color: var(--accent); text-decoration: none; margin-top: 6px;">▶
+                            Watch Demo</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-title">Education</div>
+                <div class="edu-row">
+                    <div class="edu-school">Ho Chi Minh City Open University (HCMCOU)</div>
+                    <div class="edu-degree">Faculty of Civil Engineering
+                    </div>
+                    <div class="edu-period">Jan 2011 — Jul 2016</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+
+</html>
